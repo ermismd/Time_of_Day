@@ -92,7 +92,8 @@ public void setMinutes(int minutes) {
 public void setMinutesMidnight(int minutesMidnight) {
 	if(minutesMidnight<0 ||minutesMidnight>(24*60)) {
 		throw new IllegalArgumentException("Invalid minutes till midnight given");}
-		this.minutesMidnight=minutesMidnight;
+		hours=minutesMidnight/60;
+		minutes=minutesMidnight%60;
 	}
 }
 
