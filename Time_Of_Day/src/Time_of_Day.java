@@ -1,25 +1,42 @@
 
 
 
-
+/**
+ * @invar|getHours()>0 && getHours()<24
+ * @invar|getMinutes()>0 && getMinutes()<60
+ * @invar|getMinutesMidnight()==getHours()*60+getMinutes()
+ */
 public class Time_of_Day {
 			
 	/**
 	 * @invar|minutes<60 && minutes>0
 	 * @invar|hours<24 &&hours>0
-	 * @invar|minutesMidnight>0 && minutesMidnight <(24*60)
+	 * 
+	 * 
 	 */
 	private int minutes;
 	private int hours;
 	private int minutesMidnight;
 	
 	
-	
+	/**
+	 * 
+	 *
+	 *@throws IllegalArgumentException | initialHours<0||initialHours >=24
+	 *@throws IllegalArgumentException | initialMinutes<0 ||initialMinutes>=60
+	 *
+	 *@post|getHours()==initialHours
+	 *@post|getMinutes()==initialMinutes
+	 *
+	 */
 	public Time_of_Day(int initialHours,int initialMinutes) {	
-		initialHours=hours;
-		initialMinutes=minutes;
+		if (initialHours<0 || initialHours>24) {
+			throw new IllegalArgumentException ("Invalid Hours given");}
+		if (initialMinutes<0||initialMinutes>60) {throw new IllegalArgumentException("Invalid minutes given");}
 		
-	}
+		this.hours=initialHours;
+		this.minutes=initialMinutes;
+		}
 	
 	
 public int getHours() {
@@ -32,25 +49,55 @@ public int getMinutes() {
 	
 	
 public int getMinutesMidnight() {
-	return this.minutesMidnight;
+	return this.minutesMidnight=getHours()*60+getMinutes();
 }
 	
 	
-	
+/**
+ * 
+ * @throws IllegalArgumentException|hours<0||hours>=24
+ * @mutates|this
+ * @post|getHours()==hours
+ * @post|getMinutes()==old(getMinutes())
+ * 
+ */
 public void setHours(int hours) {
+	if (hours<0 || hours>=24) {
+		throw new IllegalArgumentException ("Invalid Hours given");}
 	this.hours=hours;
 }
 	
+/**
+ * @throws IllegalArgumentException|minutes<0 ||minutes>=60
+ * @mutates|this
+ * @post|getMinutes()==minutes
+ * @post|getHours()==old(getHours())
+ * 
+ */
 public void setMinutes(int minutes) {
+	if (minutes<0||minutes>60) {throw new IllegalArgumentException("Invalid minutes given");}
 	this.minutes=minutes;
 }
 	
+/**
+ * 
+ * @throws IllegalArgumentException|minutesMidnight<0||minutesMidnight>(24*60)
+ * @mutates|this
+ * @post|getHours()==old(getHours())
+ * @post|getMinutes()==old(getMinutes())
+ * @post|getMinutesMidnight()==minutesMidnight
+ * 
+ * 
+ */
 public void setMinutesMidnight(int minutesMidnight) {
-	throw new RuntimeException("Not yet implemented");
+	if(minutesMidnight<0 ||minutesMidnight>(24*60)) {
+		throw new IllegalArgumentException("Invalid minutes till midnight given");}
+		this.minutesMidnight=minutesMidnight;
+	}
 }
 
 
 
 
 
-}
+
